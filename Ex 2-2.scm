@@ -9,6 +9,16 @@
 (define (y-point p)
   (cdr p))
 
+; Function for averaging two points together
+; i.e. computing midpoint between p1 and p2
+(define (avg-pts p1 p2)
+  (let ((x1 (x-point p1))
+        (y1 (y-point p1))
+        (x2 (x-point p2))
+        (y2 (y-point p2)))
+    (make-point (/ (+ x1 x2) 2)
+                (/ (+ y1 y2) 2))))
+
 ; Constructor for representing a segment as a pair of points (p1, p2),
 ; where p1 = (x1, y1) and p2 = (x2, y2)
 (define (make-segment p1 p2)
@@ -22,11 +32,9 @@
 
 ; Procedure for computing the midpoint of a segment
 (define (midpoint-segment s)
-  (let ((x1 (x-point (start-segment s)))
-        (y1 (y-point (start-segment s)))
-        (x2 (x-point (end-segment s)))
-        (y2 (y-point (end-segment s))))
-    (make-point (/ (+ x1 x2) 2) (/ (+ y1 y2) 2))))
+  (let ((p1 (start-segment s))
+        (p2 (end-segment s)))
+    (avg-pts p1 p2)))
 
 ; Helper function for printing points
 (define (print-point p)
